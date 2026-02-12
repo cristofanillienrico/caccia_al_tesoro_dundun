@@ -39,39 +39,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .mascotte {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(145deg, #ffe066, #fcc419);
-            border-radius: 50% 50% 45% 45%;
-            margin: 0 auto 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .mascotte::before {
-            content: "🎀";
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 60px;
-        }
-
-        .mascotte-face {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 80px;
-        }
-
         h1 {
             color: #e17055;
             font-size: 2.2em;
@@ -127,11 +94,23 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        .character-icon {
+            font-size: 4em;
+            margin: 10px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .indizio-text {
             font-size: 1.3em;
             color: #2d3436;
             line-height: 1.6;
             margin-top: 10px;
+            font-weight: 500;
         }
 
         input[type="text"] {
@@ -143,6 +122,7 @@
             margin: 20px 0;
             text-align: center;
             transition: all 0.3s;
+            text-transform: lowercase;
         }
 
         input[type="text"]:focus {
@@ -193,17 +173,6 @@
             border: 2px solid #f5c6cb;
         }
 
-        .heart {
-            color: #e84393;
-            font-size: 1.5em;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
         .progress-bar {
             width: 100%;
             height: 10px;
@@ -220,47 +189,165 @@
             border-radius: 5px;
         }
 
-        .final-celebration {
-            font-size: 4em;
-            margin: 20px 0;
-            animation: celebrate 1s infinite;
+        /* FINALE CON TUTTI I GHIRIGORI */
+        .final-container {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border-radius: 30px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: rainbow 3s infinite;
         }
 
-        @keyframes celebrate {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(-5deg); }
-            75% { transform: scale(1.1) rotate(5deg); }
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+            100% { filter: hue-rotate(0deg); }
         }
 
-        .hidden-gift {
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 2em;
+            animation: float-up 4s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .big-love-text {
             font-size: 3em;
-            margin: 10px;
-            display: inline-block;
-            animation: shake 2s infinite;
+            font-weight: bold;
+            color: #e84393;
+            text-shadow: 
+                3px 3px 0px #fff,
+                -3px -3px 0px #fff,
+                6px 6px 0px #fd79a8,
+                -1px -1px 0 #000;
+            animation: wobble 2s infinite;
+            margin: 20px 0;
+            letter-spacing: 5px;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-3deg) scale(1); }
+            50% { transform: rotate(3deg) scale(1.1); }
+        }
+
+        .crazy-eyes {
+            font-size: 5em;
+            margin: 20px 0;
+            display: inline-block;
+            animation: spin-crazy 3s infinite;
+        }
+
+        @keyframes spin-crazy {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg) scale(1.2); }
+            50% { transform: rotate(15deg) scale(0.9); }
+            75% { transform: rotate(-10deg) scale(1.1); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .squiggle {
+            font-size: 4em;
+            display: inline-block;
+            animation: squiggle-move 1s infinite;
+        }
+
+        @keyframes squiggle-move {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-10px) rotate(-20deg); }
+            75% { transform: translateX(10px) rotate(20deg); }
+        }
+
+        .sparkles {
+            font-size: 2em;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .dancing-characters {
+            margin: 30px 0;
+        }
+
+        .dancer {
+            font-size: 3em;
+            display: inline-block;
+            margin: 0 10px;
+            animation: dance 1s infinite;
+        }
+
+        .dancer:nth-child(1) { animation-delay: 0s; }
+        .dancer:nth-child(2) { animation-delay: 0.2s; }
+        .dancer:nth-child(3) { animation-delay: 0.4s; }
+        .dancer:nth-child(4) { animation-delay: 0.6s; }
+        .dancer:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(-10deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        .signature {
+            font-size: 1.5em;
+            color: #d63031;
+            font-style: italic;
+            margin-top: 30px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            animation: pulse-text 2s infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stars {
+            font-size: 2em;
+            animation: star-twinkle 0.5s infinite;
+        }
+
+        @keyframes star-twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         @media (max-width: 600px) {
             .container { padding: 25px; }
             h1 { font-size: 1.8em; }
             .indizio-text { font-size: 1.1em; }
+            .character-icon { font-size: 3em; }
+            .big-love-text { font-size: 2em; }
+            .crazy-eyes { font-size: 3em; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- MASCOTTE -->
-        <div class="mascotte">
-            <div class="mascotte-face">🐥</div>
-        </div>
-
         <!-- SCHERMATA INIZIALE -->
         <div id="step-0" class="step active">
+            <div class="character-icon">🐥</div>
             <h1>La Caccia al Tesoro di Dooooondon</h1>
             <p class="subtitle">Un'avventura d'amore ti aspetta... 💛</p>
             
@@ -268,13 +355,13 @@
                 <p>Ciao amore! Benvenuta nella caccia al tesoro più speciale che ci sia.</p>
                 <p>Ho nascosto <strong>5 regali</strong> per te in casa, e dovrai trovarli seguendo gli indizi!</p>
                 <p>Ogni volta che trovi un regalo, inserisci la <strong>parola magica</strong> scritta sul bigliettino per sbloccare il prossimo indizio.</p>
-                <p class="heart">Sei pronta? 💕</p>
+                <p style="font-size: 1.5em; animation: pulse 1s infinite;">💕</p>
             </div>
             
             <button onclick="startGame()">Inizia l'Avventura!</button>
         </div>
 
-        <!-- INDIzio 1 -->
+        <!-- LIVELLO 1: RATOPO -->
         <div id="step-1" class="step">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 20%"></div>
@@ -282,22 +369,20 @@
             
             <div class="indizio-box">
                 <div class="indizio-numero">1</div>
+                <div class="character-icon">🐭</div>
                 <p class="indizio-text">
-                    "Dove il giorno inizia e la notte finisce,<br>
-                    tra cuscini morbidi e sogni densi,<br>
- sogni densi,<br>
-                    il primo tesoro ti aspetta in silenzio,<br>
-                    dove riposiamo con tanto affetto."
+                    <strong>Ratopo</strong> ama molto le spezie...<br>
+                    Sai dove trovarlo?
                 </p>
             </div>
             
-            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
-            <input type="text" id="answer-1" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 1)">
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica:</p>
+            <input type="text" id="answer-1" placeholder="Scrivi qui..." onkeypress="handleEnter(event, 1)">
             <button onclick="checkAnswer(1)">Verifica 🔍</button>
             <div id="message-1"></div>
         </div>
 
-        <!-- INDIzio 2 -->
+        <!-- LIVELLO 2: GINGER -->
         <div id="step-2" class="step">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 40%"></div>
@@ -305,21 +390,20 @@
             
             <div class="indizio-box">
                 <div class="indizio-numero">2</div>
+                <div class="character-icon">🍪</div>
                 <p class="indizio-text">
-                    "Bravissima! Ora cerca dove l'acqua scorre,<br>
-                    dove ci si lava e ci si rilassa,<br>
-                    guarda bene tra spugne e saponi,<br>
-                    il secondo tesoro ti aspetta lì, sai già!"
+                    <strong>Ginger</strong> si è nascosto in bagno...<br>
+                    Trovalo!
                 </p>
             </div>
             
-            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
-            <input type="text" id="answer-2" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 2)">
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica:</p>
+            <input type="text" id="answer-2" placeholder="Scrivi qui..." onkeypress="handleEnter(event, 2)">
             <button onclick="checkAnswer(2)">Verifica 🔍</button>
             <div id="message-2"></div>
         </div>
 
-        <!-- INDIzio 3 -->
+        <!-- LIVELLO 3: DICCIONAIRE -->
         <div id="step-3" class="step">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 60%"></div>
@@ -327,21 +411,20 @@
             
             <div class="indizio-box">
                 <div class="indizio-numero">3</div>
+                <div class="character-icon">📚</div>
                 <p class="indizio-text">
-                    "Sei fantastica! Ora pensa al calore,<br>
-                    dove cuciniamo con tanto amore,<br>
-                    apri gli armadietti con attenzione,<br>
-                    il terzo tesoro è nascosto con dedizione."
+                    <strong>Diccionaire</strong> è a scuola...<br>
+                    Vallo a prendere!
                 </p>
             </div>
             
-            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
-            <input type="text" id="answer-3" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 3)">
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica:</p>
+            <input type="text" id="answer-3" placeholder="Scrivi qui..." onkeypress="handleEnter(event, 3)">
             <button onclick="checkAnswer(3)">Verifica 🔍</button>
             <div id="message-3"></div>
         </div>
 
-        <!-- INDIzio 4 -->
+        <!-- LIVELLO 4: BROCCOLO L'ESOTERISTA -->
         <div id="step-4" class="step">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 80%"></div>
@@ -349,21 +432,20 @@
             
             <div class="indizio-box">
                 <div class="indizio-numero">4</div>
+                <div class="character-icon">🥦</div>
                 <p class="indizio-text">
-                    "Continua così, amore mio!<br>
-                    Ora guarda dove riponiamo i libri,<br>
-                    tra storie e avventure varie,<br>
-                    il quarto tesoro aspetta che tu lo scopri."
+                    <strong>Broccolo l'Esoterista</strong> ha un nuovo amuleto...<br>
+                    Lo trovi nel luogo sacro!
                 </p>
             </div>
             
-            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
-            <input type="text" id="answer-4" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 4)">
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica:</p>
+            <input type="text" id="answer-4" placeholder="Scrivi qui..." onkeypress="handleEnter(event, 4)">
             <button onclick="checkAnswer(4)">Verifica 🔍</button>
             <div id="message-4"></div>
         </div>
 
-        <!-- INDIzio 5 -->
+        <!-- LIVELLO 5: NUOVO AMICO -->
         <div id="step-5" class="step">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 100%"></div>
@@ -371,56 +453,87 @@
             
             <div class="indizio-box">
                 <div class="indizio-numero">5</div>
+                <div class="character-icon">🎁</div>
                 <p class="indizio-text">
-                    "Ultimo indizio, sei stata grandiosa!<br>
-                    Guarda dove mettiamo i piedi all'ingresso,<br>
-                    tra scarpe e ciabatte varie,<br>
-                    l'ultimo tesoro completa le meraviglie."
+                    Un <strong>nuovo amico</strong> ti aspetta...<br>
+                    Lo trovi vicino al tuo comodino!
                 </p>
             </div>
             
-            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
-            <input type="text" id="answer-5" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 5)">
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica finale:</p>
+            <input type="text" id="answer-5" placeholder="Scrivi qui..." onkeypress="handleEnter(event, 5)">
             <button onclick="checkAnswer(5)">Verifica 🔍</button>
             <div id="message-5"></div>
         </div>
 
-        <!-- FINALE -->
+        <!-- FINALE CON TUTTI I GHIRIGORI -->
         <div id="step-final" class="step">
-            <div class="final-celebration">🎉🎊🎉</div>
-            <h1>Hai Completato la Caccia!</h1>
-            
-            <div class="message success">
-                <p>Sei stata incredibile, amore! 💕</p>
-                <p>Hai trovato tutti e 5 i tesori nascosti!</p>
-                <p>Ogni regalo è un pezzetto del mio amore per te.</p>
+            <div class="final-container">
+                <!-- Cuori che fluttuano -->
+                <div class="floating-hearts" id="hearts-container"></div>
+                
+                <!-- Testo grande con ombre -->
+                <div class="squiggle">✨</div>
+                <div class="big-love-text">TI AMO</div>
+                <div class="squiggle">✨</div>
+                
+                <!-- Occhi storti che girano -->
+                <div class="crazy-eyes">🤪</div>
+                
+                <!-- Personaggi che ballano -->
+                <div class="dancing-characters">
+                    <div class="dancer">🐭</div>
+                    <div class="dancer">🍪</div>
+                    <div class="dancer">📚</div>
+                    <div class="dancer">🥦</div>
+                    <div class="dancer">🎁</div>
+                </div>
+                
+                <!-- Stelle e scintille -->
+                <div style="margin: 20px 0;">
+                    <span class="sparkles">💖</span>
+                    <span class="stars">⭐</span>
+                    <span class="sparkles">💕</span>
+                    <span class="stars">🌟</span>
+                    <span class="sparkles">💖</span>
+                </div>
+                
+                <!-- Messaggio finale -->
+                <div style="background: rgba(255,255,255,0.8); border-radius: 20px; padding: 20px; margin: 20px 0;">
+                    <p style="font-size: 1.2em; color: #2d3436; line-height: 1.6;">
+                        Hai trovato tutti i tesori!<br>
+                        Sei la mia <strong>sei la musa sempre tu</strong>! 💕
+                    </p>
+                </div>
+                
+                <!-- Firma -->
+                <div class="signature">
+                    ~ Il tuo Dooooondon ~<br>
+                    <span style="font-size: 0.8em;">🐥 per sempre 🐥</span>
+                </div>
+                
+                <!-- Altri ghirigori -->
+                <div style="margin-top: 20px; font-size: 2em;">
+                    <span class="squiggle">🌈</span>
+                    <span class="squiggle">💫</span>
+                    <span class="squiggle">🎊</span>
+                    <span class="squiggle">💝</span>
+                    <span class="squiggle">🌈</span>
+                </div>
             </div>
-            
-            <div style="margin: 30px 0;">
-                <div class="hidden-gift">🎁</div>
-                <div class="hidden-gift">💝</div>
-                <div class="hidden-gift">🎁</div>
-                <div class="hidden-gift">💝</div>
-                <div class="hidden-gift">🎁</div>
-            </div>
-            
-            <p style="font-size: 1.3em; color: #e84393; font-weight: bold; margin-top: 20px;">
-                Ti amo! ❤️<br>
-                - Il tuo Dooooondon
-            </p>
             
             <button onclick="location.reload()" style="margin-top: 30px;">Ricomincia 🔄</button>
         </div>
     </div>
 
     <script>
-        // CONFIGURAZIONE - MODIFICA QUI LE PAROLE MAGICHE!
+        // PASSWORD CONFIGURATION
         const passwords = {
-            1: "CUORE",      // Modifica con la tua parola per il regalo 1
-            2: "AMORE",      // Modifica con la tua parola per il regalo 2
-            3: "BACIO",      // Modifica con la tua parola per il regalo 3
-            4: "FELICE",     // Modifica con la tua parola per il regalo 4
-            5: "PERSEMPRE"   // Modifica con la tua parola per il regalo 5
+            1: "sei",
+            2: "la", 
+            3: "musa",
+            4: "sempre",
+            5: "tu"
         };
 
         function startGame() {
@@ -432,6 +545,26 @@
                 step.classList.remove('active');
             });
             document.getElementById(`step-${stepNum}`).classList.add('active');
+            
+            // Se è il finale, genera i cuori fluttuanti
+            if (stepNum === 'final') {
+                generateFloatingHearts();
+            }
+        }
+
+        function generateFloatingHearts() {
+            const container = document.getElementById('hearts-container');
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘', '💞'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+                container.appendChild(heart);
+            }
         }
 
         function handleEnter(event, stepNum) {
@@ -441,14 +574,21 @@
         }
 
         function checkAnswer(stepNum) {
-            const input = document.getElementById(`answer-${stepNum}`).value.toUpperCase().trim();
+            const input = document.getElementById(`answer-${stepNum}`).value.toLowerCase().trim();
             const messageDiv = document.getElementById(`message-${stepNum}`);
             
             if (input === passwords[stepNum]) {
+                let successMsg = "";
+                if (stepNum === 1) successMsg = "Brava! Ratopo è felice! 🐭";
+                else if (stepNum === 2) successMsg = "Perfetto! Ginger era lì! 🍪";
+                else if (stepNum === 3) successMsg = "Ottimo! Diccionaire trovato! 📚";
+                else if (stepNum === 4) successMsg = "Fantastico! Broccolo è orgoglioso! 🥦";
+                else if (stepNum === 5) successMsg = "Ultimo regalo! Sei fantastica! 🎁";
+                
                 messageDiv.innerHTML = `
                     <div class="message success">
-                        <p>🎉 Corretto! Hai trovato il regalo ${stepNum}!</p>
-                        <p>Preparati per il prossimo indizio...</p>
+                        <p>${successMsg}</p>
+                        <p>Preparati...</p>
                     </div>
                 `;
                 
@@ -458,12 +598,12 @@
                     } else {
                         showStep('final');
                     }
-                }, 2000);
+                }, 1500);
             } else {
                 messageDiv.innerHTML = `
                     <div class="message error">
-                        <p>❌ Mmm, non è la parola giusta...</p>
-                        <p>Riprova! Controlla bene il bigliettino del regalo.</p>
+                        <p>❌ Non è la parola giusta...</p>
+                        <p>Riprova!</p>
                     </div>
                 `;
             }
