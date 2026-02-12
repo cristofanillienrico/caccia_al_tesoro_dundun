@@ -1,1 +1,475 @@
 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Caccia al Tesoro di Dooooondon 💛</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mascotte {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #ffe066, #fcc419);
+            border-radius: 50% 50% 45% 45%;
+            margin: 0 auto 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mascotte::before {
+            content: "🎀";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+        }
+
+        .mascotte-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+        }
+
+        h1 {
+            color: #e17055;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #636e72;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .indizio-box {
+            background: linear-gradient(135deg, #fff5f5, #ffe0e0);
+            border: 3px dashed #fd79a8;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .indizio-numero {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fd79a8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .indizio-text {
+            font-size: 1.3em;
+            color: #2d3436;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 3px solid #dfe6e9;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #fd79a8;
+            transform: scale(1.02);
+        }
+
+        button {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(253, 121, 168, 0.4);
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .heart {
+            color: #e84393;
+            font-size: 1.5em;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #dfe6e9;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fd79a8, #e84393);
+            transition: width 0.5s ease-out;
+            border-radius: 5px;
+        }
+
+        .final-celebration {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: celebrate 1s infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .hidden-gift {
+            font-size: 3em;
+            margin: 10px;
+            display: inline-block;
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            h1 { font-size: 1.8em; }
+            .indizio-text { font-size: 1.1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- MASCOTTE -->
+        <div class="mascotte">
+            <div class="mascotte-face">🐥</div>
+        </div>
+
+        <!-- SCHERMATA INIZIALE -->
+        <div id="step-0" class="step active">
+            <h1>La Caccia al Tesoro di Dooooondon</h1>
+            <p class="subtitle">Un'avventura d'amore ti aspetta... 💛</p>
+            
+            <div class="message" style="background: #fff3cd; border: 2px solid #ffeaa7;">
+                <p>Ciao amore! Benvenuta nella caccia al tesoro più speciale che ci sia.</p>
+                <p>Ho nascosto <strong>5 regali</strong> per te in casa, e dovrai trovarli seguendo gli indizi!</p>
+                <p>Ogni volta che trovi un regalo, inserisci la <strong>parola magica</strong> scritta sul bigliettino per sbloccare il prossimo indizio.</p>
+                <p class="heart">Sei pronta? 💕</p>
+            </div>
+            
+            <button onclick="startGame()">Inizia l'Avventura!</button>
+        </div>
+
+        <!-- INDIzio 1 -->
+        <div id="step-1" class="step">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%"></div>
+            </div>
+            
+            <div class="indizio-box">
+                <div class="indizio-numero">1</div>
+                <p class="indizio-text">
+                    "Dove il giorno inizia e la notte finisce,<br>
+                    tra cuscini morbidi e sogni densi,<br>
+ sogni densi,<br>
+                    il primo tesoro ti aspetta in silenzio,<br>
+                    dove riposiamo con tanto affetto."
+                </p>
+            </div>
+            
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
+            <input type="text" id="answer-1" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 1)">
+            <button onclick="checkAnswer(1)">Verifica 🔍</button>
+            <div id="message-1"></div>
+        </div>
+
+        <!-- INDIzio 2 -->
+        <div id="step-2" class="step">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 40%"></div>
+            </div>
+            
+            <div class="indizio-box">
+                <div class="indizio-numero">2</div>
+                <p class="indizio-text">
+                    "Bravissima! Ora cerca dove l'acqua scorre,<br>
+                    dove ci si lava e ci si rilassa,<br>
+                    guarda bene tra spugne e saponi,<br>
+                    il secondo tesoro ti aspetta lì, sai già!"
+                </p>
+            </div>
+            
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
+            <input type="text" id="answer-2" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 2)">
+            <button onclick="checkAnswer(2)">Verifica 🔍</button>
+            <div id="message-2"></div>
+        </div>
+
+        <!-- INDIzio 3 -->
+        <div id="step-3" class="step">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+            
+            <div class="indizio-box">
+                <div class="indizio-numero">3</div>
+                <p class="indizio-text">
+                    "Sei fantastica! Ora pensa al calore,<br>
+                    dove cuciniamo con tanto amore,<br>
+                    apri gli armadietti con attenzione,<br>
+                    il terzo tesoro è nascosto con dedizione."
+                </p>
+            </div>
+            
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
+            <input type="text" id="answer-3" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 3)">
+            <button onclick="checkAnswer(3)">Verifica 🔍</button>
+            <div id="message-3"></div>
+        </div>
+
+        <!-- INDIzio 4 -->
+        <div id="step-4" class="step">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%"></div>
+            </div>
+            
+            <div class="indizio-box">
+                <div class="indizio-numero">4</div>
+                <p class="indizio-text">
+                    "Continua così, amore mio!<br>
+                    Ora guarda dove riponiamo i libri,<br>
+                    tra storie e avventure varie,<br>
+                    il quarto tesoro aspetta che tu lo scopri."
+                </p>
+            </div>
+            
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
+            <input type="text" id="answer-4" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 4)">
+            <button onclick="checkAnswer(4)">Verifica 🔍</button>
+            <div id="message-4"></div>
+        </div>
+
+        <!-- INDIzio 5 -->
+        <div id="step-5" class="step">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+            </div>
+            
+            <div class="indizio-box">
+                <div class="indizio-numero">5</div>
+                <p class="indizio-text">
+                    "Ultimo indizio, sei stata grandiosa!<br>
+                    Guarda dove mettiamo i piedi all'ingresso,<br>
+                    tra scarpe e ciabatte varie,<br>
+                    l'ultimo tesoro completa le meraviglie."
+                </p>
+            </div>
+            
+            <p style="color: #636e72; margin-bottom: 10px;">Inserisci la parola magica trovata sul regalo:</p>
+            <input type="text" id="answer-5" placeholder="Scrivi qui la parola..." onkeypress="handleEnter(event, 5)">
+            <button onclick="checkAnswer(5)">Verifica 🔍</button>
+            <div id="message-5"></div>
+        </div>
+
+        <!-- FINALE -->
+        <div id="step-final" class="step">
+            <div class="final-celebration">🎉🎊🎉</div>
+            <h1>Hai Completato la Caccia!</h1>
+            
+            <div class="message success">
+                <p>Sei stata incredibile, amore! 💕</p>
+                <p>Hai trovato tutti e 5 i tesori nascosti!</p>
+                <p>Ogni regalo è un pezzetto del mio amore per te.</p>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <div class="hidden-gift">🎁</div>
+                <div class="hidden-gift">💝</div>
+                <div class="hidden-gift">🎁</div>
+                <div class="hidden-gift">💝</div>
+                <div class="hidden-gift">🎁</div>
+            </div>
+            
+            <p style="font-size: 1.3em; color: #e84393; font-weight: bold; margin-top: 20px;">
+                Ti amo! ❤️<br>
+                - Il tuo Dooooondon
+            </p>
+            
+            <button onclick="location.reload()" style="margin-top: 30px;">Ricomincia 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAZIONE - MODIFICA QUI LE PAROLE MAGICHE!
+        const passwords = {
+            1: "CUORE",      // Modifica con la tua parola per il regalo 1
+            2: "AMORE",      // Modifica con la tua parola per il regalo 2
+            3: "BACIO",      // Modifica con la tua parola per il regalo 3
+            4: "FELICE",     // Modifica con la tua parola per il regalo 4
+            5: "PERSEMPRE"   // Modifica con la tua parola per il regalo 5
+        };
+
+        function startGame() {
+            showStep(1);
+        }
+
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step-${stepNum}`).classList.add('active');
+        }
+
+        function handleEnter(event, stepNum) {
+            if (event.key === 'Enter') {
+                checkAnswer(stepNum);
+            }
+        }
+
+        function checkAnswer(stepNum) {
+            const input = document.getElementById(`answer-${stepNum}`).value.toUpperCase().trim();
+            const messageDiv = document.getElementById(`message-${stepNum}`);
+            
+            if (input === passwords[stepNum]) {
+                messageDiv.innerHTML = `
+                    <div class="message success">
+                        <p>🎉 Corretto! Hai trovato il regalo ${stepNum}!</p>
+                        <p>Preparati per il prossimo indizio...</p>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    if (stepNum < 5) {
+                        showStep(stepNum + 1);
+                    } else {
+                        showStep('final');
+                    }
+                }, 2000);
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message error">
+                        <p>❌ Mmm, non è la parola giusta...</p>
+                        <p>Riprova! Controlla bene il bigliettino del regalo.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
+
